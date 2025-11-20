@@ -31,15 +31,14 @@ import os
 # ╚════════════════════════════════════════════════════════════════════════╝
 
 # Para MÁXIMO DESEMPENHO com 32GB RAM: use 64. Se amigo tem menos, reduza
-CUSTOM_BATCH_SIZE = 64  # None = automático | Coloque número (16, 32, 48, 64, 80...) para forçar
+CUSTOM_BATCH_SIZE = None  # None = automático | Coloque número (16, 32, 48, 64, 80...) para forçar
 
 # Tamanho da imagem: 640 (padrão), 768 (melhor), 832, ou 1024 (máximo)
 # MAIOR = MELHOR PRECISÃO. Com 32GB, use 768 ou 832. CPU pode usar 1024 se tiver tempo
 CUSTOM_IMGSZ = 768
 
 # Número de workers: use todos os núcleos que tiver
-# Seu Ryzen 7 5800X tem 8 cores = use 8 (não deixe núcleos ociosos)
-CUSTOM_WORKERS = 8  # None = automático | Coloque 4, 6, 8, 12, 16...
+CUSTOM_WORKERS = None  # None = automático | Coloque 4, 6, 8, 12, 16....
 
 # Cache: 'ram' (mais rápido), 'disk' (economiza RAM), False (sem cache)
 # Com 32GB, sempre use 'ram' para máximo de velocidade
@@ -133,8 +132,8 @@ model = YOLO("yolov8n.pt")  # pequeno, rápido para teste; depois pode usar yolo
 
 # Treinar com configurações otimizadas
 results = model.train(
-    data="D:/TCC/datasets/datasetsNovos/CODEBRIM_split_yolo/data.yaml",
-    epochs=200,  # 20 no teste (aumentar depois para melhor convergência)
+    data="D:/TCC/datasets/datasetsNovos/CODEBRIM_split_yolo/data.yaml", #local do YAML do dataset
+    epochs=200,  # 20 no teste (aumentar depois para melhor convergência, uns 200 (com early stopping deve parar na casa dos 80))
     imgsz=CUSTOM_IMGSZ,  # Tamanho da imagem (maior = mais preciso)
     batch=batch_size,  # Batch size (maior = mais rápido, usa mais RAM)
     device=device,  # GPU ou CPU
@@ -143,7 +142,7 @@ results = model.train(
     workers=num_workers,  # Workers para carregar dados (maior = mais paralelo)
     patience=10,  # Early stopping se não melhorar em 10 épocas
     name="CODEBRIM_yolo",
-    verbose=True
+    verbose=True #mostra quao completo está o treino
 )
 
 # Resultado final
