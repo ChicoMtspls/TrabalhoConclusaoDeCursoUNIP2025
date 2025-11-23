@@ -148,3 +148,5 @@ results = model.train(
 # Resultado final
 if results:
     print("\nTreinamento completado com sucesso!")
+
+#yolo predict model=best.pt source=imagem.png conf=0.3
